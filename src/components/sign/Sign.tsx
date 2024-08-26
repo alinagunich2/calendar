@@ -37,28 +37,37 @@ const Sign = () => {
   const submitData = () => {
     const newError = { ...error };
     if (data.username === "") {
-      return (newError.username = "Заполните username");
+      newError.username = "Заполните username";
     } else {
       newError.username = "";
     }
 
     if (data.email === "") {
-      return (newError.password = "Заполните email");
+      newError.email = "Заполните email";
     } else if (!validateEmail(data.email)) {
-      return (newError.email = "Введите корректный email");
+      newError.email = "Введите корректный email";
     } else {
       newError.email = "";
     }
 
     if (data.password === "") {
-      return (newError.password = "Заполните password");
+      newError.password = "Заполните password";
     } else if (!validatePassword(data.password)) {
-      return (newError.password = "Мин 1 цифр 1 букв и 1 загл букв");
+      newError.password = "Мин 1 цифр 1 букв и 1 загл букв";
     } else {
       newError.password = "";
     }
-    setError(newError);
-    return console.log("отпоавлено");
+    setError(() => newError);
+    if (
+      newError.username !== "" ||
+      newError.email !== "" ||
+      newError.password !== ""
+    ) {
+      console.log(newError);
+      return console.log("error");
+    } else {
+      console.log("отправлено");
+    }
   };
   return (
     <div className="sign__container ">
