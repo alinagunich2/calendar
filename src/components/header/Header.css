@@ -1,0 +1,16 @@
+.header {
+  background-color: rgb(22, 119, 75);
+  padding: 20px 0;
+}
+.header__container {
+  display: flex;
+  justify-content: space-between;
+}
+.header__title {
+  color: white;
+  font-size: 30px;
+}
+.header__button {
+  padding: 10px 20px;
+  border-radius: 30px;
+}

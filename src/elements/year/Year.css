@@ -1,0 +1,10 @@
+.year {
+  font-size: 37px;
+  margin-right: 100px;
+  display: flex;
+  gap: 20px;
+}
+.year__back,
+.year__next {
+  cursor: pointer;
+}
