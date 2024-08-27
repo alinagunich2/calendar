@@ -33,6 +33,10 @@
 .current-month {
   color: #333333;
 }
+.day.active {
+  background-color: rgb(22, 119, 75);
+  color: #e0e0e0;
+}
 
 .day:not(.current-month) {
   background-color: #e0e0e0;

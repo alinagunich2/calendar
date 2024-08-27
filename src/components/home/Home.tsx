@@ -24,6 +24,8 @@ const Home = () => {
   const [year, setYear] = useState(data.getFullYear());
   const [listActive, setListActive] = useState(false);
   const [daysCalendar, setDaysCalendar] = useState<(number | null)[]>([]);
+  const [activeDay, setActiveDay] = useState(data.getDate());
+  console.log(activeDay, "activeDay");
 
   useEffect(() => {
     updateCalendar(year, month);
@@ -80,7 +82,13 @@ const Home = () => {
           <Year year={year} handleYearChange={handleYearChange} />
           <List {...homeProps} />
         </div>
-        <Calendar daysCalendar={daysCalendar} />
+        <Calendar
+          daysCalendar={daysCalendar}
+          year={year}
+          month={month}
+          setActiveDay={setActiveDay}
+          activeDay={activeDay}
+        />
       </div>
     </section>
   );
