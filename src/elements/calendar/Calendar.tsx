@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import "./Calendar.css";
 import ModalCreateNoties from "../modals/modalCreateNoties/ModalCreateNoties";
-export interface CalendarProps {
-  daysCalendar: (number | null)[];
-  year: number;
-  month: number;
-  activeDay: number;
-  setActiveDay: (val: number) => void;
-}
+import { useDispatch, useSelector } from "react-redux";
+import { setActiveDay } from "../../redux/calendarState";
+import { RootState } from "../../redux/store";
 
-const Calendar: React.FC<CalendarProps> = (p) => {
+const Calendar = () => {
+  const dispatch = useDispatch();
+  const { daysInCalendar, activeDay } = useSelector(
+    (state: RootState) => state.calendar
+  );
   const [isModalCreate, setIsModalCreate] = useState(false);
 
   const openModal = (day: number | null) => {
     if (typeof day === "number") {
       setIsModalCreate(!isModalCreate);
-      p.setActiveDay(day);
+      dispatch(setActiveDay(day));
     }
   };
   return (
@@ -26,11 +26,11 @@ const Calendar: React.FC<CalendarProps> = (p) => {
             {day}
           </div>
         ))}
-        {p.daysCalendar.map((day, i) => (
+        {daysInCalendar.map((day: number | null, i: number) => (
           <div
             onClick={() => openModal(day)}
             key={i}
-            className={`day current-month ${day === p.activeDay && "active"}`}
+            className={`day current-month ${day === activeDay && "active"}`}
           >
             {day}
           </div>
@@ -38,9 +38,7 @@ const Calendar: React.FC<CalendarProps> = (p) => {
       </div>
       <ModalCreateNoties
         isModalCreate={isModalCreate}
-        year={p.year}
-        month={p.month}
-        day={p.activeDay}
+        setIsModalCreate={setIsModalCreate}
       />
     </div>
   );

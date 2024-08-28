@@ -3,6 +3,14 @@ import Year from "../../elements/year/Year";
 import List from "../../elements/list/List";
 import Calendar from "../../elements/calendar/Calendar";
 import "./Home.css";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { AppDispatch } from "../../redux/store";
+import {
+  setDaysInCalendar,
+  setMonth,
+  setYear,
+} from "../../redux/calendarState";
 
 const Home = () => {
   const months = [
@@ -19,12 +27,14 @@ const Home = () => {
     "November",
     "December",
   ];
-  const data = new Date();
-  const [month, setMonth] = useState(data.getMonth());
-  const [year, setYear] = useState(data.getFullYear());
+  // const data = new Date();
+  const dispatch = useDispatch<AppDispatch>();
+  const { year, month, activeDay } = useSelector(
+    (state: RootState) => state.calendar
+  );
+
   const [listActive, setListActive] = useState(false);
-  const [daysCalendar, setDaysCalendar] = useState<(number | null)[]>([]);
-  const [activeDay, setActiveDay] = useState(data.getDate());
+  // const [daysInCalendar, setDaysInCalendar] = useState<(number | null)[]>([]);
   console.log(activeDay, "activeDay");
 
   useEffect(() => {
@@ -51,18 +61,18 @@ const Home = () => {
       }
     }
 
-    setDaysCalendar(days);
+    dispatch(setDaysInCalendar(days));
   };
 
   const handleMonthChange = (index: number) => {
-    setMonth(index);
+    dispatch(setMonth(index));
   };
   const handleYearChange = (type: "back" | "next") => {
     if (type === "back") {
-      setYear((val) => val - 1);
+      dispatch(setYear(year - 1));
     } else if (type === "next") {
       console.log(type === "next");
-      setYear((val) => val + 1);
+      dispatch(setYear(year + 1));
     }
   };
 
@@ -83,11 +93,11 @@ const Home = () => {
           <List {...homeProps} />
         </div>
         <Calendar
-          daysCalendar={daysCalendar}
-          year={year}
-          month={month}
-          setActiveDay={setActiveDay}
-          activeDay={activeDay}
+        // daysCalendar={daysCalendar}
+        // year={year}
+        // month={month}
+        // setActiveDay={setActiveDay}
+        // activeDay={activeDay}
         />
       </div>
     </section>

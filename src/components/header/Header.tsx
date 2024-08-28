@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import "./Header.css";
-import { StorageType } from "../../types/enum";
+import { useDispatch } from "react-redux";
+import { deliteUser } from "../../redux/userState";
 
 const Header = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const logout = () => {
-    localStorage.removeItem(StorageType.ActiveUser);
+    dispatch(deliteUser());
     navigate("/");
   };
   return (

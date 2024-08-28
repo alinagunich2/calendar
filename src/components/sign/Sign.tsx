@@ -3,6 +3,9 @@ import "./Sign.css";
 import { useNavigate } from "react-router-dom";
 import { StorageType } from "../../types/enum";
 import Button from "../../elements/buttons/Button";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/userState";
+import { LocalStorage, UserState } from "../../utils/LocalStorage";
 
 export interface NotiesType {
   day: number;
@@ -15,9 +18,10 @@ export interface userTypes {
   username: string;
   email: string;
   password: string;
-  listNoties: [];
+  listNoties?: NotiesType[] | [];
 }
 const Sign = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [activeSignUp, setActiveSignUp] = useState(true);
   const [data, setData] = useState({
@@ -30,7 +34,10 @@ const Sign = () => {
     email: "",
     password: "",
   });
-  const listUsers: string | null = localStorage.getItem(StorageType.ListUsers);
+  const listUsers: string | null | undefined = LocalStorage(
+    "getItem",
+    StorageType.ListUsers
+  );
   let parsedUsers: userTypes[] | null = null;
   if (listUsers) {
     parsedUsers = JSON.parse(listUsers);
@@ -45,7 +52,7 @@ const Sign = () => {
       password: "",
     });
   };
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setData((prevData) => ({
       ...prevData,
@@ -115,21 +122,40 @@ const Sign = () => {
       console.log("error");
     } else {
       if (listUsers === null) {
-        localStorage.setItem(StorageType.ListUsers, JSON.stringify([data]));
-        localStorage.setItem(StorageType.ActiveUser, JSON.stringify(data));
+        LocalStorage("setItem", StorageType.ListUsers, [
+          {
+            ...data,
+            listNoties: [],
+          },
+        ]);
+        LocalStorage("setItem", StorageType.ActiveUser, {
+          ...data,
+          listNoties: [],
+        });
+        console.log(LocalStorage("getItem", StorageType.ActiveUser), "getItem");
       } else {
         if (parsedUsers) {
           parsedUsers.push(data);
-          localStorage.setItem(
-            StorageType.ListUsers,
-            JSON.stringify(parsedUsers)
-          );
-          localStorage.setItem(
-            StorageType.ActiveUser,
-            JSON.stringify(findEmail)
-          );
+          LocalStorage("setItem", StorageType.ListUsers, parsedUsers);
+          if (findEmail) {
+            LocalStorage("setItem", StorageType.ActiveUser, findEmail);
+          }
         }
       }
+      const getActiveUser = (): UserState => {
+        const activeUser = LocalStorage("getItem", StorageType.ActiveUser);
+        return activeUser
+          ? JSON.parse(activeUser)
+          : {
+              username: null,
+              email: null,
+              password: null,
+              listNoties: [],
+            };
+      };
+
+      dispatch(setUser(getActiveUser()));
+
       navigate("/home");
     }
   };
