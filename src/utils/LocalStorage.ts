@@ -1,7 +1,7 @@
 export interface NotiesType {
-  day: number;
-  month: number;
-  year: number;
+  activeDay: string;
+  month: string;
+  year: string;
   title: string;
   description: string;
 }
@@ -10,7 +10,7 @@ export interface UserState {
   username: string | null;
   email: string | null;
   password: string | null;
-  listNoties?: NotiesType[] | [];
+  listNoties?: NotiesType[];
 }
 
 export const LocalStorage = (

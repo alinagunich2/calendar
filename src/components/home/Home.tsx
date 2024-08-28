@@ -14,6 +14,7 @@ import {
 
 const Home = () => {
   const months = [
+    "null",
     "January",
     "February",
     "March",
@@ -27,34 +28,30 @@ const Home = () => {
     "November",
     "December",
   ];
-  // const data = new Date();
   const dispatch = useDispatch<AppDispatch>();
   const { year, month, activeDay } = useSelector(
     (state: RootState) => state.calendar
   );
 
   const [listActive, setListActive] = useState(false);
-  // const [daysInCalendar, setDaysInCalendar] = useState<(number | null)[]>([]);
-  console.log(activeDay, "activeDay");
 
   useEffect(() => {
-    updateCalendar(year, month);
+    updateCalendar(Number(year), Number(month));
   }, [year, month]);
 
   const updateCalendar = (year: number, month: number) => {
-    const daysMonth = new Date(year, month + 1, 0).getDate();
-    const firstDayMonth = new Date(year, month, 1).getDay();
-    console.log(daysMonth, "daysMonth");
-    console.log(firstDayMonth, "firstDayMonth");
+    const daysMonth = new Date(year, month, 0).getDate();
+    const firstDayMonth = new Date(year, month - 1, 1).getDay();
+    const adjustedFirstDay = firstDayMonth === 0 ? 6 : firstDayMonth - 1;
 
     const days = [];
-    for (let i = 0; i < firstDayMonth; i++) {
+    for (let i = 0; i < adjustedFirstDay; i++) {
       days.push(null);
     }
     for (let i = 1; i <= daysMonth; i++) {
-      days.push(i);
+      days.push(String(i).padStart(2, "0"));
     }
-    const nextMonthDays = 7 - (days.length % 7);
+    const nextMonthDays = (7 - (days.length % 7)) % 7;
     if (nextMonthDays !== 7) {
       for (let i = 1; i <= nextMonthDays; i++) {
         days.push(null);
@@ -64,15 +61,14 @@ const Home = () => {
     dispatch(setDaysInCalendar(days));
   };
 
-  const handleMonthChange = (index: number) => {
-    dispatch(setMonth(index));
+  const handleMonthChange = (index: string) => {
+    dispatch(setMonth(String(index).padStart(2, "0")));
   };
   const handleYearChange = (type: "back" | "next") => {
     if (type === "back") {
-      dispatch(setYear(year - 1));
+      dispatch(setYear(String(Number(year) - 1)));
     } else if (type === "next") {
-      console.log(type === "next");
-      dispatch(setYear(year + 1));
+      dispatch(setYear(String(Number(year) + 1)));
     }
   };
 

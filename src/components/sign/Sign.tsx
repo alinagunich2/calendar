@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import "./Sign.css";
 import { useNavigate } from "react-router-dom";
 import { StorageType } from "../../types/enum";
@@ -83,7 +83,6 @@ const Sign = () => {
       }
     }
 
-    console.log(findEmail);
     if (activeSignUp) {
       if (data.username === "") {
         newError.username = "Заполните username";
@@ -132,7 +131,6 @@ const Sign = () => {
           ...data,
           listNoties: [],
         });
-        console.log(LocalStorage("getItem", StorageType.ActiveUser), "getItem");
       } else {
         if (parsedUsers) {
           parsedUsers.push(data);

@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import "./List.css";
-
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 export interface ListProps {
   months: string[];
-  month: number;
   handleMonthChange: (val: number) => void;
   setListActive: (val: boolean) => void;
   listActive: boolean;
@@ -12,6 +12,7 @@ export interface ListProps {
 const List: React.FC<ListProps> = (p) => {
   const listRef = useRef<HTMLUListElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const { month } = useSelector((state: RootState) => state.calendar);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -39,18 +40,22 @@ const List: React.FC<ListProps> = (p) => {
           p.setListActive(!p.listActive);
         }}
       >
-        {p.months[p.month]}
+        {p.months[parseInt(String(month), 10)]}
       </button>
       {p.listActive && (
         <ul ref={listRef} className="mounth__items">
           {p.months.map((item, i) => (
-            <li
-              className="mounth__item"
-              onClick={() => p.handleMonthChange(i)}
-              key={item}
-            >
-              {item}
-            </li>
+            <>
+              {i !== 0 && (
+                <li
+                  className="mounth__item"
+                  onClick={() => p.handleMonthChange(i)}
+                  key={item}
+                >
+                  {item}
+                </li>
+              )}
+            </>
           ))}
         </ul>
       )}

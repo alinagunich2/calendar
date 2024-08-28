@@ -1,13 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import "./Header.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deliteUser } from "../../redux/userState";
 
 const Header = () => {
+  const { listNoties } = useSelector((state: RootState) => state.user);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const logout = () => {
-    dispatch(deliteUser());
+    dispatch(deliteUser(listNoties));
     navigate("/");
   };
   return (

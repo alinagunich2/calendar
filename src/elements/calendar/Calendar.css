@@ -46,3 +46,23 @@
   background-color: rgb(168, 208, 145);
   cursor: pointer;
 }
+.calendar__noties {
+  display: flex;
+  /* flex-wrap: wrap; */
+  /* gap: 5px; */
+  justify-content: end;
+  padding: 10px 10px 10px 10px;
+  cursor: pointer;
+  width: 100%;
+  align-items: center;
+}
+.calendar__noties_dot {
+  border-radius: 100px;
+  height: 5px;
+  width: 5px;
+  background-color: black;
+  margin-right: 5px;
+}
+.calendar__noties:hover .calendar__noties_dot {
+  background-color: red;
+}

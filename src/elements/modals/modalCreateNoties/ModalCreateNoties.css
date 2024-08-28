@@ -7,6 +7,13 @@
   background: rgba(255, 255, 255, 0.735);
   z-index: 999;
 }
+.modal__header {
+  display: flex;
+  justify-content: space-between;
+}
+.modal__cross {
+  cursor: pointer;
+}
 .modal__container {
   position: fixed;
   top: 50%;
@@ -36,10 +43,24 @@
   color: rgb(64, 86, 51);
   margin-bottom: 15px;
 }
+
 .modal__text::-webkit-resizer {
   display: none;
 }
 .modal__button {
   padding: 10px 24px;
   border-radius: 10px;
+}
+.modal__inputs {
+  display: flex;
+  align-items: end;
+}
+.modal__inputs input {
+  background-color: rgba(231, 255, 221, 0.826);
+}
+.modal__input-item_data {
+}
+.modal__input-item_month {
+}
+.modal__input-item_year {
 }
