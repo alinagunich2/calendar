@@ -1,13 +1,35 @@
+import React from "react";
 import ReactDOM from "react-dom";
+import "./Portal.css";
 
-const Portal = ({ children }) => {
+interface PortalTypes {
+  title: string;
+  isVisible: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+}
+
+const Portal: React.FC<PortalTypes> = (p) => {
   const portalRoot = document.getElementById("portal-root");
 
-  if (!portalRoot) {
+  if (!p.isVisible || !portalRoot) {
     return null;
   }
 
-  return ReactDOM.createPortal(children, portalRoot);
+  return ReactDOM.createPortal(
+    <div className="modal">
+      <div className="modal__container">
+        <div className="modal__header">
+          <h2 className="modal__title">{p.title}</h2>
+          <div className="modal__closs" onClick={p.onClose}>
+            &#10060;
+          </div>
+        </div>
+        {p.children}
+      </div>
+    </div>,
+    portalRoot
+  );
 };
 
 export default Portal;

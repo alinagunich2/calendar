@@ -14,7 +14,7 @@
   font-size: 30px;
   margin-bottom: 20px;
 }
-input {
+.sign__input {
   display: block;
   padding: 15px 10px;
   border-radius: 10px;
@@ -24,7 +24,7 @@ input {
   font-size: 14px;
   color: rgb(64, 86, 51);
 }
-input:not(:first-child) {
+.sign__input:not(:first-child) {
   margin-top: 10px;
 }
 

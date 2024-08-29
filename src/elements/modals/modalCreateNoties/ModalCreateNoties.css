@@ -1,36 +1,3 @@
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.735);
-  z-index: 999;
-}
-.modal__header {
-  display: flex;
-  justify-content: space-between;
-}
-.modal__cross {
-  cursor: pointer;
-}
-.modal__container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 300px;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  padding: 20px;
-  z-index: 1000;
-  border: 1px solid #ccc;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-.modal__title {
-  text-align: center;
-  margin-bottom: 10px;
-  font-weight: 300;
-}
 .modal__input,
 .modal__text {
   display: block;
@@ -43,6 +10,10 @@
   color: rgb(64, 86, 51);
   margin-bottom: 15px;
 }
+.modal__text {
+  height: 100px;
+  margin-top: 15px;
+}
 
 .modal__text::-webkit-resizer {
   display: none;
@@ -53,14 +24,25 @@
 }
 .modal__inputs {
   display: flex;
-  align-items: end;
-}
-.modal__inputs input {
+  align-items: center;
+  border: 1px solid rgb(131, 136, 129);
   background-color: rgba(231, 255, 221, 0.826);
+  padding: 10px 10px;
+  border-radius: 10px;
 }
-.modal__input-item_data {
+.modal__inputs div {
 }
-.modal__input-item_month {
+.modal__input-item {
+  background-color: rgba(231, 255, 221, 0.826);
+  width: 40px;
+  padding: 0;
+  text-align: center;
+  border: 0;
+  margin-top: 0;
+  outline: none;
+  font-size: 14px;
 }
-.modal__input-item_year {
+.modal__input-item:first-child,
+.modal__input-item:nth-child(3) {
+  width: 20px;
 }

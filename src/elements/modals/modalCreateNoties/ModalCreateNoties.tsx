@@ -9,6 +9,7 @@ import { setActiveDay, setMonth, setYear } from "../../../redux/calendarState";
 import { setListNoties } from "../../../redux/userState";
 
 export interface ModalCreateNotiesType {
+  title: string;
   isModalCreate: boolean;
   setIsModalCreate: (val: boolean) => void;
 }
@@ -30,9 +31,6 @@ const ModalCreateNoties: React.FC<ModalCreateNotiesType> = (p) => {
       year,
     }));
   }, [activeDay, month, year]);
-  console.log(activeDay);
-  console.log(month);
-  const { listNoties } = useSelector((state: RootState) => state.user);
   const [modalData, setModalData] = useState({
     title: "",
     activeDay,
@@ -73,76 +71,73 @@ const ModalCreateNoties: React.FC<ModalCreateNotiesType> = (p) => {
       dispatch(setListNoties(modalData));
       setModalData({
         title: "",
-        activeDay: null,
-        month: null,
-        year: null,
+        activeDay,
+        month,
+        year,
         description: "",
       });
       p.setIsModalCreate(!p.isModalCreate);
       console.log("все отправлено");
     } else {
+      console.log(modalData.activeDay);
+      console.log(modalData.month);
+      console.log(modalData.month);
       console.log("не отправлено");
     }
   };
   return (
-    <Portal>
-      <div className="modal">
-        <div className="modal__container">
-          <div className="modal__header ">
-            <h2 className="modal__title">Create Event</h2>
-            <div
-              className="modal__cross"
-              onClick={() => p.setIsModalCreate(!p.isModalCreate)}
-            >
-              {" "}
-              &#10060;
-            </div>
-          </div>
-
-          <form action="">
+    <Portal
+      isVisible={p.isModalCreate}
+      onClose={() => p.setIsModalCreate(false)}
+      title={p.title}
+    >
+      <div className="">
+        <form action="">
+          <input
+            onChange={hendleChange}
+            name="title"
+            value={modalData.title}
+            className="modal__input"
+            type="text"
+            placeholder="Title..."
+          />
+          <div className="modal__inputs">
             <input
+              placeholder="_ _"
               onChange={hendleChange}
-              name="title"
-              value={modalData.title}
-              className="modal__input"
+              name="activeDay"
+              value={activeDay}
+              className="modal__input-item"
               type="text"
-              placeholder="Title..."
             />
-            <div className="modal__inputs">
-              <input
-                onChange={hendleChange}
-                name="activeDay"
-                value={activeDay}
-                className="modal__input-item_data"
-                type="text"
-              />
-              <div className="">.</div>
-              <input
-                onChange={hendleChange}
-                name="month"
-                value={month}
-                className="modal__input-item_month"
-                type="text"
-              />
-              <div className="">.</div>
-              <input
-                onChange={hendleChange}
-                name="year"
-                value={year}
-                className="modal__input-item_year"
-                type="text"
-              />
-            </div>
+            <div className="">.</div>
             <input
+              placeholder="_ _"
               onChange={hendleChange}
-              name="description"
-              value={modalData.description}
-              className="modal__text"
-              placeholder="Description..."
+              name="month"
+              value={month}
+              className="modal__input-item"
+              type="text"
             />
-            <Button click={submitData} />
-          </form>
-        </div>
+            <div className="">.</div>
+            <input
+              placeholder="_ _"
+              onChange={hendleChange}
+              name="year"
+              value={year}
+              className="modal__input-item"
+              type="text"
+            />
+          </div>
+          <textarea
+            onChange={hendleChange}
+            name="description"
+            value={modalData.description}
+            className="modal__text"
+            placeholder="Description..."
+          ></textarea>
+          <Button click={submitData} />
+        </form>
       </div>
     </Portal>
   );

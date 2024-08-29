@@ -1,5 +1,5 @@
 .calendar {
-  margin-top: 60px;
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -28,14 +28,31 @@
   background-color: rgb(215, 231, 207);
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(129, 161, 121, 0.529);
+  transition: all 0.3s ease;
+}
+.calendar__today {
+  background-color: rgb(22, 119, 75);
+  color: #e0e0e0;
+  padding: 5px 10px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.calendar__today:hover {
+  background-color: rgb(137, 210, 88);
 }
 
 .current-month {
   color: #333333;
+  position: relative;
 }
 .day.active {
-  background-color: rgb(22, 119, 75);
+  background-color: rgb(137, 210, 88);
   color: #e0e0e0;
+}
+.day.today {
+  background-color: rgb(22, 119, 75);
 }
 
 .day:not(.current-month) {
@@ -48,8 +65,7 @@
 }
 .calendar__noties {
   display: flex;
-  /* flex-wrap: wrap; */
-  /* gap: 5px; */
+
   justify-content: end;
   padding: 10px 10px 10px 10px;
   cursor: pointer;
@@ -61,8 +77,11 @@
   height: 5px;
   width: 5px;
   background-color: black;
-  margin-right: 5px;
+  padding: 5px;
+  position: absolute;
+  bottom: 7px;
+  right: 7px;
 }
-.calendar__noties:hover .calendar__noties_dot {
+.calendar__noties_dot:hover {
   background-color: red;
 }

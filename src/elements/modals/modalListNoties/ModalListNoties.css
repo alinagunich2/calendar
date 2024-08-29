@@ -1,0 +1,15 @@
+.list-item {
+  border-radius: 10px;
+  border: 2px solid rgb(76, 115, 18);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 10px;
+}
+.list-item__cross {
+  font-size: 25px;
+  cursor: pointer;
+}
+.list-item:not(:last-child) {
+  margin-bottom: 20px;
+}

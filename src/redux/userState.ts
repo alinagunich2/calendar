@@ -24,7 +24,6 @@ const userSlice = createSlice({
       LocalStorage("setItem", StorageType.ActiveUser, action.payload);
     },
     setListNoties(state, action: PayloadAction<NotiesType>) {
-      console.log(action.payload);
       if (!state.listNoties) {
         state.listNoties = [];
       }
@@ -37,7 +36,6 @@ const userSlice = createSlice({
       });
     },
     deliteUser(state, action) {
-      console.log(action);
       const getActiveUser = (): UserState[] => {
         const activeUser = LocalStorage("getItem", StorageType.ListUsers);
         return activeUser
@@ -50,7 +48,6 @@ const userSlice = createSlice({
             };
       };
       const ListUsersArr = getActiveUser();
-      console.log(ListUsersArr);
 
       const findListUsers = ListUsersArr.find(
         (item) => item.email === state.email
@@ -69,7 +66,23 @@ const userSlice = createSlice({
       state.listNoties = [];
       LocalStorage("removeItem", StorageType.ActiveUser);
     },
+    deliteNotieInList(state, action) {
+      state.listNoties = state.listNoties?.filter(
+        (item) =>
+          !(
+            item.activeDay === action.payload.activeDay &&
+            item.title === action.payload.title
+          )
+      );
+      LocalStorage("setItem", StorageType.ActiveUser, {
+        username: state.username,
+        email: state.email,
+        password: state.password,
+        listNoties: state.listNoties,
+      });
+    },
   },
 });
-export const { setUser, setListNoties, deliteUser } = userSlice.actions;
+export const { setUser, setListNoties, deliteUser, deliteNotieInList } =
+  userSlice.actions;
 export default userSlice.reducer;

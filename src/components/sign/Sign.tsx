@@ -132,11 +132,20 @@ const Sign = () => {
           listNoties: [],
         });
       } else {
+        console.log("elsef");
         if (parsedUsers) {
+          console.log(parsedUsers, "f");
+          console.log(data, "data");
           parsedUsers.push(data);
           LocalStorage("setItem", StorageType.ListUsers, parsedUsers);
+          console.log(findEmail);
           if (findEmail) {
             LocalStorage("setItem", StorageType.ActiveUser, findEmail);
+          } else {
+            LocalStorage("setItem", StorageType.ActiveUser, {
+              ...data,
+              listNoties: [],
+            });
           }
         }
       }
@@ -167,6 +176,7 @@ const Sign = () => {
           {activeSignUp && (
             <>
               <input
+                className="sign__input"
                 onChange={handleChange}
                 name="username"
                 type="text"
@@ -177,6 +187,7 @@ const Sign = () => {
             </>
           )}
           <input
+            className="sign__input"
             type="email"
             name="email"
             onChange={handleChange}
@@ -185,6 +196,7 @@ const Sign = () => {
           />
           <div className="error">{error.email}</div>
           <input
+            className="sign__input"
             type="password"
             name="password"
             onChange={handleChange}
