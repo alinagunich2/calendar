@@ -1,9 +1,7 @@
 .calendar__mounth {
   position: relative;
-  top: 0px;
-  left: 0px;
 }
-.mounth__input,
+
 .mounth__select {
   padding: 10px 20px;
   border-radius: 5px;
@@ -11,20 +9,21 @@
   cursor: pointer;
   font-size: 20px;
   transition: all 0.3s ease;
-}
-.mounth__select {
+  color: #e0e0e0;
   width: 140px;
-  border: 0;
+  border: 1px solid transparent;
 }
+
 .mounth__items {
   width: 140px;
   position: absolute;
   top: 50px;
-  left: 0px;
+  left: 0;
   text-align: center;
   border-radius: 8px;
   z-index: 2;
 }
+
 .mounth__item {
   padding: 3px 0;
   font-size: 14px;
@@ -33,61 +32,57 @@
 
 .green .mounth__select {
   background-color: var(--green-400);
-  border: 1px solid var(--green-400);
-}
-.green .mounth__input {
-  border: 1px solid var(--green-300);
-  background-color: var(--green-200);
+  border-color: var(--green-400);
 }
 
 .green .mounth__items {
   border: 1px solid var(--green-200);
   background-color: var(--green-250);
 }
+
 .green .mounth__item:not(:last-child) {
   border-bottom: 1px solid var(--green-200);
 }
+
 .green .mounth__select:hover {
   background-color: var(--green-100);
+  color: black;
 }
 
 .pink .mounth__select {
   background-color: rgb(119, 22, 108);
-  border: 1px solid rgb(119, 22, 108);
-}
-
-.pink .mounth__input {
-  border: 1px solid rgb(192, 88, 210);
-  background-color: rgb(199, 145, 208);
+  border-color: rgb(119, 22, 108);
 }
 
 .pink .mounth__items {
   border: 1px solid rgb(199, 145, 208);
   background-color: rgb(241, 184, 243);
 }
+
 .pink .mounth__item:not(:last-child) {
   border-bottom: 1px solid rgb(199, 145, 208);
 }
+
 .pink .mounth__select:hover {
   background-color: rgb(229, 207, 231);
+  color: black;
 }
 
 .blue .mounth__select {
   background-color: rgb(22, 53, 119);
-  border: 1px solid rgb(22, 53, 119);
-}
-.blue .mounth__input {
-  border: 1px solid rgb(88, 123, 210);
-  background-color: rgb(145, 174, 208);
+  border-color: rgb(22, 53, 119);
 }
 
 .blue .mounth__items {
   border: 1px solid rgb(184, 210, 243);
   background-color: rgb(184, 210, 243);
 }
+
 .blue .mounth__item:not(:last-child) {
   border-bottom: 1px solid rgb(145, 174, 208);
 }
+
 .blue .mounth__select:hover {
   background-color: rgb(207, 216, 231);
+  color: black;
 }
