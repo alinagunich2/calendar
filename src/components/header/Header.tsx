@@ -23,7 +23,7 @@ const Header = () => {
       <div className="header__container _container">
         <h1 className="header__title">Calendar Application</h1>
         <div className="header__data">
-          <div className="">{email}</div>
+          <div className="">&#129418; {email}</div>
           <button className="header__button" onClick={logout}>
             Logout
           </button>

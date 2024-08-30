@@ -1,37 +1,41 @@
-import "./Popup.css";
 import { useEffect } from "react";
-import ReactDOM from "react-dom";
+import { AnimatePresence, motion } from "framer-motion";
+import "./Popup.css";
 
-interface PortalTypes {
+interface PopupProps {
   isVisible: boolean;
   onClose: () => void;
   icon: string;
   text: string;
 }
 
-const Popup: React.FC<PortalTypes> = ({ isVisible, onClose, icon, text }) => {
-  const portalRoot = document.getElementById("popup-root");
-
+const Popup: React.FC<PopupProps> = ({ isVisible, onClose, icon, text }) => {
   useEffect(() => {
     if (isVisible) {
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         onClose();
-      }, 2000);
+      }, 3000);
+      return () => clearTimeout(timer);
     }
   }, [isVisible, onClose]);
 
-  if (!isVisible || !portalRoot) {
-    return null;
-  }
-
-  return ReactDOM.createPortal(
-    <div className="popup">
-      <div className="popup__container">
-        <span>{icon}</span>
-        <div>{text}</div>
-      </div>
-    </div>,
-    portalRoot
+  return (
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -50 }}
+          transition={{ duration: 0.3 }}
+          className="popup"
+        >
+          <div className="popup__container">
+            <span className="popup__icon">{icon}</span>
+            <div className="popup__text">{text}</div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 

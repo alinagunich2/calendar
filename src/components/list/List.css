@@ -10,9 +10,11 @@
   text-align: center;
   cursor: pointer;
   font-size: 20px;
+  transition: all 0.3s ease;
 }
 .mounth__select {
   width: 140px;
+  border: 0;
 }
 .mounth__items {
   width: 140px;
@@ -21,7 +23,7 @@
   left: 0px;
   text-align: center;
   border-radius: 8px;
-  z-index: 29292992;
+  z-index: 2;
 }
 .mounth__item {
   padding: 3px 0;
@@ -29,8 +31,11 @@
   cursor: pointer;
 }
 
-.green .mounth__input,
 .green .mounth__select {
+  background-color: var(--green-400);
+  border: 1px solid var(--green-400);
+}
+.green .mounth__input {
   border: 1px solid var(--green-300);
   background-color: var(--green-200);
 }
@@ -42,9 +47,16 @@
 .green .mounth__item:not(:last-child) {
   border-bottom: 1px solid var(--green-200);
 }
+.green .mounth__select:hover {
+  background-color: var(--green-100);
+}
 
-.pink .mounth__input,
 .pink .mounth__select {
+  background-color: rgb(119, 22, 108);
+  border: 1px solid rgb(119, 22, 108);
+}
+
+.pink .mounth__input {
   border: 1px solid rgb(192, 88, 210);
   background-color: rgb(199, 145, 208);
 }
@@ -56,9 +68,15 @@
 .pink .mounth__item:not(:last-child) {
   border-bottom: 1px solid rgb(199, 145, 208);
 }
+.pink .mounth__select:hover {
+  background-color: rgb(229, 207, 231);
+}
 
-.blue .mounth__input,
 .blue .mounth__select {
+  background-color: rgb(22, 53, 119);
+  border: 1px solid rgb(22, 53, 119);
+}
+.blue .mounth__input {
   border: 1px solid rgb(88, 123, 210);
   background-color: rgb(145, 174, 208);
 }
@@ -69,4 +87,7 @@
 }
 .blue .mounth__item:not(:last-child) {
   border-bottom: 1px solid rgb(145, 174, 208);
+}
+.blue .mounth__select:hover {
+  background-color: rgb(207, 216, 231);
 }

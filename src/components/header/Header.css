@@ -19,14 +19,49 @@
   padding: 10px 20px;
   border-radius: 30px;
   margin-left: 15px;
+  cursor: pointer;
+  background-color: #fff;
+  color: #333;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header__button:hover {
+  background-color: #f0f0f0;
+
+  transform: scale(1.1);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.header__button:active {
+  transform: scale(0.95);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .green.header {
   background-color: var(--green-400);
 }
+
+.green .header__button:hover {
+  color: var(--green-300);
+  border-color: var(--green-300);
+}
+
 .pink.header {
   background-color: rgb(119, 22, 108);
 }
+
+.pink .header__button:hover {
+  color: rgb(192, 88, 210);
+  border-color: rgb(192, 88, 210);
+}
+
 .blue.header {
   background-color: rgb(22, 53, 119);
+}
+
+.blue .header__button:hover {
+  color: rgb(88, 123, 210);
+  border-color: rgb(88, 123, 210);
 }

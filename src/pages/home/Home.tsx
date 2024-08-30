@@ -1,6 +1,7 @@
 import "./Home.css";
 import { ChangeEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { motion } from "framer-motion";
 import Year from "../../components/year/Year";
 import List from "../../components/list/List";
 import Calendar from "../../components/calendar/Calendar";
@@ -27,26 +28,26 @@ const Home = () => {
   };
 
   return (
-    <section className="page__calendar ">
+    <section className="page__calendar">
       <div className="calendar__container _container">
-        <div className="">
+        <motion.div
+          className=""
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+        >
           <div className="calendar__header">
             <Year />
             <List />
           </div>
           <Calendar />
-        </div>
+        </motion.div>
         <div className="page__selector-color">
-          <select onChange={(e) => handleThemeChange(e)}>
-            <option selected={"green" === color} value="green">
-              Green
-            </option>
-            <option selected={"pink" === color} value="pink">
-              Pink
-            </option>
-            <option selected={"blue" === color} value="blue">
-              Blue
-            </option>
+          <select onChange={(e) => handleThemeChange(e)} value={color}>
+            <option value="green">Green</option>
+            <option value="pink">Pink</option>
+            <option value="blue">Blue</option>
           </select>
         </div>
       </div>

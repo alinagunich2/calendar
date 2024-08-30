@@ -15,6 +15,26 @@
 .calendar__add {
   cursor: pointer;
   font-size: 20px;
+  transition: all 0.3s ease;
+}
+.calendar__add:hover {
+  transform: scale(1.2);
+  animation: pulse 0.6s ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
 }
 
 .days {
@@ -79,6 +99,7 @@
   position: absolute;
   bottom: 7px;
   right: 7px;
+  transition: background-color 0.2s ease;
 }
 .calendar__noties_dot:hover {
   background-color: red;

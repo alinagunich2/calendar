@@ -1,5 +1,6 @@
-import "./List.css";
 import { useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import "./List.css";
 import { useList } from "../../hooks/useList";
 
 const List = () => {
@@ -25,7 +26,7 @@ const List = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [setListActive]);
 
   return (
     <div className={`calendar__mounth mounth ${color}`}>
@@ -33,28 +34,38 @@ const List = () => {
         className="mounth__select"
         ref={buttonRef}
         onClick={() => {
-          setListActive(!listActive);
+          setListActive((prev) => !prev);
         }}
       >
         {months[parseInt(month, 10)]}
       </button>
-      {listActive && (
-        <ul ref={listRef} className="mounth__items">
-          {months.map((item, i) => (
-            <>
-              {i !== 0 && (
-                <li
-                  className="mounth__item"
-                  onClick={() => handleMonthChange(i)}
-                  key={item}
-                >
-                  {item}
-                </li>
-              )}
-            </>
-          ))}
-        </ul>
-      )}
+      <AnimatePresence>
+        {listActive && (
+          <motion.ul
+            ref={listRef}
+            className="mounth__items"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            {months.map(
+              (item, i) =>
+                i !== 0 && (
+                  <motion.li
+                    className="mounth__item"
+                    onClick={() => handleMonthChange(i)}
+                    key={item}
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {item}
+                  </motion.li>
+                )
+            )}
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

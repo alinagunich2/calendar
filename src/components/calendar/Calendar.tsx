@@ -74,7 +74,6 @@ const Calendar = () => {
 
       <ModalCreateNoties
         setShowPopup={setShowPopup}
-        title={"Create Event"}
         isModalCreate={isModalCreate}
         setIsModalCreate={setIsModalCreate}
       />

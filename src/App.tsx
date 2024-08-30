@@ -11,6 +11,7 @@ import Sign from "./pages/sign/Sign";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
 import { ReactNode } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface GuardType {
   children: ReactNode;
@@ -30,29 +31,37 @@ function App() {
   return (
     <Router>
       <div className="wrapper">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <GuardSign>
-                <Sign />
-              </GuardSign>
-            }
-          />
-          <Route
-            path="/home"
-            element={
-              <GuardHome>
-                <>
-                  <Header />
-                  <main className="page">
-                    <Home />
-                  </main>
-                </>
-              </GuardHome>
-            }
-          />
-        </Routes>
+        <AnimatePresence>
+          <Routes location={location} key={location.pathname}>
+            <Route
+              path="/"
+              element={
+                <GuardSign>
+                  <Sign />
+                </GuardSign>
+              }
+            />
+            <Route
+              path="/home"
+              element={
+                <GuardHome>
+                  <>
+                    <Header />
+                    <motion.main
+                      className="page"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <Home />
+                    </motion.main>
+                  </>
+                </GuardHome>
+              }
+            />
+          </Routes>
+        </AnimatePresence>
       </div>
     </Router>
   );
