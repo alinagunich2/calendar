@@ -1,7 +1,7 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { setMonth } from "../redux/calendarState";
-import { useState } from "react";
 
 export const useList = () => {
   const months = [
@@ -20,9 +20,10 @@ export const useList = () => {
     "December",
   ];
   const dispatch = useDispatch();
-  const { month } = useSelector((state: RootState) => state.calendar);
+  const { month, color } = useSelector((state: RootState) => state.calendar);
 
   const [listActive, setListActive] = useState(false);
+
   const handleMonthChange = (index: number) => {
     dispatch(setMonth(String(index).padStart(2, "0")));
   };
@@ -33,5 +34,6 @@ export const useList = () => {
     setListActive,
     handleMonthChange,
     month,
+    color,
   };
 };

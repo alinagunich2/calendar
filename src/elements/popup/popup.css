@@ -1,0 +1,12 @@
+.popup {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  z-index: 999;
+}
+.popup__container {
+  border-radius: 10px;
+  padding: 20px;
+  background-color: azure;
+  box-shadow: 0 2px 4px rgba(129, 161, 121, 0.529);
+}

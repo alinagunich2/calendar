@@ -9,7 +9,7 @@ export const useModalOpen = () => {
   const [dayClick, setDayClick] = useState<null | string>(null);
 
   const openModal = (day: string | null) => {
-    if (typeof day === "string") {
+    if (day) {
       setIsModalCreate(!isModalCreate);
       dispatch(setActiveDay(day));
     }

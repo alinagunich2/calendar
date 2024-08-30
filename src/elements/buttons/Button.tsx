@@ -1,10 +1,21 @@
-import React from "react";
+import "./Button.css";
 interface ButtonType {
+  color: string;
+  disabled?: boolean;
   click: () => void;
 }
-const Button: React.FC<ButtonType> = (p) => {
+const Button: React.FC<ButtonType> = ({
+  disabled = false,
+  click,
+  color,
+}: ButtonType) => {
   return (
-    <button type="button" onClick={p.click} className="sign__button">
+    <button
+      disabled={disabled}
+      type="button"
+      onClick={click}
+      className={`button ${color}`}
+    >
       Accept
     </button>
   );

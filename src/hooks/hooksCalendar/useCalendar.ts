@@ -1,14 +1,26 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { setDaysInCalendar } from "../../redux/calendarState";
 
 export const useCalendar = () => {
   const dispatch = useDispatch();
-  const { daysInCalendar, activeDay, month, year } = useSelector(
-    (state: RootState) => state.calendar
-  );
-  const { listNoties } = useSelector((state: RootState) => state.user);
+
+  const { daysInCalendar, activeDay, month, year, color, listNoties } =
+    useSelector((state: RootState) => ({
+      daysInCalendar: state.calendar.daysInCalendar,
+      activeDay: state.calendar.activeDay,
+      month: state.calendar.month,
+      year: state.calendar.year,
+      color: state.calendar.color,
+      listNoties: state.user.listNoties,
+    }));
+
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
 
   useEffect(() => {
     updateCalendar(Number(year), Number(month));
@@ -37,5 +49,15 @@ export const useCalendar = () => {
   };
 
   const filterListNoties = listNoties?.filter((item) => item.month === month);
-  return { daysInCalendar, activeDay, month, year, filterListNoties };
+  return {
+    daysInCalendar,
+    activeDay,
+    month,
+    year,
+    filterListNoties,
+    showPopup,
+    setShowPopup,
+    handleClosePopup,
+    color,
+  };
 };

@@ -65,6 +65,7 @@ const userSlice = createSlice({
       state.password = null;
       state.listNoties = [];
       LocalStorage("removeItem", StorageType.ActiveUser);
+      LocalStorage("removeItem", "popupShown");
     },
     deliteNotieInList(state, action) {
       state.listNoties = state.listNoties?.filter(

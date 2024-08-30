@@ -7,14 +7,24 @@ export interface ModalCreateNotiesType {
   title: string;
   isModalCreate: boolean;
   setIsModalCreate: (val: boolean) => void;
+  setShowPopup: (val: boolean) => void;
 }
 
 const ModalCreateNoties: React.FC<ModalCreateNotiesType> = (p) => {
-  const { activeDay, month, year, modalData, hendleChange, submitData } =
-    useModalCreateNoties({
-      isModalCreate: p.isModalCreate,
-      setIsModalCreate: p.setIsModalCreate,
-    });
+  const {
+    activeDay,
+    month,
+    year,
+    modalData,
+    hendleChange,
+    submitData,
+    disabledBtn,
+    color,
+  } = useModalCreateNoties({
+    isModalCreate: p.isModalCreate,
+    setIsModalCreate: p.setIsModalCreate,
+    setShowPopup: p.setShowPopup,
+  });
 
   return (
     <Portal
@@ -22,7 +32,7 @@ const ModalCreateNoties: React.FC<ModalCreateNotiesType> = (p) => {
       onClose={() => p.setIsModalCreate(false)}
       title={p.title}
     >
-      <div className="">
+      <div className={color}>
         <form action="">
           <input
             onChange={hendleChange}
@@ -52,7 +62,7 @@ const ModalCreateNoties: React.FC<ModalCreateNotiesType> = (p) => {
             />
             <div className="">.</div>
             <input
-              placeholder="_ _"
+              placeholder="_ _ _ _"
               onChange={hendleChange}
               name="year"
               value={year}
@@ -67,7 +77,7 @@ const ModalCreateNoties: React.FC<ModalCreateNotiesType> = (p) => {
             className="modal__text"
             placeholder="Description..."
           ></textarea>
-          <Button click={submitData} />
+          <Button color={color} disabled={disabledBtn} click={submitData} />
         </form>
       </div>
     </Portal>

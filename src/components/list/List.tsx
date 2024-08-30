@@ -1,9 +1,9 @@
-import { useEffect, useRef } from "react";
 import "./List.css";
+import { useEffect, useRef } from "react";
 import { useList } from "../../hooks/useList";
 
 const List = () => {
-  const { months, listActive, setListActive, handleMonthChange, month } =
+  const { months, listActive, setListActive, handleMonthChange, month, color } =
     useList();
 
   const listRef = useRef<HTMLUListElement | null>(null);
@@ -26,8 +26,9 @@ const List = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
   return (
-    <div className="calendar__mounth mounth">
+    <div className={`calendar__mounth mounth ${color}`}>
       <button
         className="mounth__select"
         ref={buttonRef}

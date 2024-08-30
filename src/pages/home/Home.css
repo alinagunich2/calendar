@@ -3,3 +3,28 @@
   display: flex;
   align-items: center;
 }
+.calendar__container {
+  display: flex;
+  justify-content: space-between;
+}
+.page__selector-color select {
+  margin-top: 32px;
+  padding: 12px 20px;
+  font-size: 18px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  color: #333;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.page__selector-color select:hover {
+  border-color: #888;
+}
+
+.page__selector-color select:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 5px rgba(0, 86, 179, 0.3);
+}

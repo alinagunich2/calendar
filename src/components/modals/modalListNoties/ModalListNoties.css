@@ -1,6 +1,5 @@
 .list-item {
   border-radius: 10px;
-  border: 2px solid rgb(76, 115, 18);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -12,4 +11,16 @@
 }
 .list-item:not(:last-child) {
   margin-bottom: 20px;
+}
+
+.green .list-item {
+  border: 2px solid var(--green-400);
+}
+
+.pink .list-item {
+  border: 2px solid rgb(119, 22, 108);
+}
+
+.blue .list-item {
+  border: 2px solid rgb(22, 53, 119);
 }

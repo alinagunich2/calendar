@@ -13,13 +13,18 @@ export const useModalListNoties = ({
   filterListNoties,
 }: UseModalListNotiesTypes) => {
   const dispatch = useDispatch();
-  const { month, year } = useSelector((state: RootState) => state.calendar);
+
+  const { month, year, color } = useSelector(
+    (state: RootState) => state.calendar
+  );
+
   let filterListNotiesDay: NotiesType[] | [] = [];
   if (filterListNoties) {
     filterListNotiesDay = filterListNoties.filter(
       (item) => item.activeDay === dayClick
     );
   }
+
   const deliteNoties = (item: NotiesType) => {
     dispatch(deliteNotieInList(item));
   };
@@ -28,5 +33,6 @@ export const useModalListNoties = ({
     year,
     filterListNotiesDay,
     deliteNoties,
+    color,
   };
 };

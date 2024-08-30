@@ -1,0 +1,43 @@
+.button {
+  margin: 0 auto;
+  margin-top: 30px;
+  display: block;
+  border: none;
+  background-color: rgb(84, 117, 63);
+  font-size: 20px;
+  color: white;
+  padding: 10px 30px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.button:hover {
+  background-color: rgb(124, 154, 107);
+}
+
+.green.button {
+  background-color: var(--green-400);
+}
+
+.green.button:hover {
+  background-color: var(--green-450);
+}
+
+.pink.button {
+  background-color: rgb(119, 22, 108);
+}
+
+.pink.button:hover {
+  background-color: rgb(145, 107, 154);
+}
+
+.blue.button {
+  background-color: rgb(22, 53, 119);
+}
+
+.blue.button:hover {
+  background-color: rgb(107, 118, 154);
+}
+.button:disabled {
+  background-color: grey;
+}

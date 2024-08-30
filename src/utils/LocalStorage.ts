@@ -16,7 +16,7 @@ export interface UserState {
 export const LocalStorage = (
   method: string,
   type: string,
-  data?: UserState | UserState[]
+  data?: UserState | UserState[] | string
 ) => {
   switch (method) {
     case "getItem":

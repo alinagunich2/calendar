@@ -28,22 +28,6 @@
   margin-top: 10px;
 }
 
-.sign__button {
-  margin: 0 auto;
-  margin-top: 30px;
-  display: block;
-  border: none;
-  background-color: rgb(84, 117, 63);
-  font-size: 20px;
-  color: white;
-  padding: 10px 30px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-.sign__button:hover {
-  background-color: rgb(124, 154, 107);
-}
 .sign__description {
   margin-top: 20px;
 }

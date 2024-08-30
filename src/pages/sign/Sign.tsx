@@ -44,7 +44,7 @@ const Sign = () => {
             placeholder="Password..."
           />
           <div className="error">{error.password}</div>
-          <Button click={submitData} />
+          <Button color={"green"} click={submitData} />
         </form>
       </div>
       <p className="sign__description">

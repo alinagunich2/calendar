@@ -1,16 +1,32 @@
 .header {
-  background-color: rgb(22, 119, 75);
   padding: 20px 0;
 }
 .header__container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.header__data {
+  display: flex;
+  align-items: center;
 }
 .header__title {
-  color: white;
   font-size: 30px;
 }
 .header__button {
   padding: 10px 20px;
   border-radius: 30px;
+  margin-left: 15px;
+}
+
+.green.header {
+  background-color: var(--green-400);
+}
+.pink.header {
+  background-color: rgb(119, 22, 108);
+}
+.blue.header {
+  background-color: rgb(22, 53, 119);
 }

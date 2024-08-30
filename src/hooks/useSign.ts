@@ -1,8 +1,8 @@
 import { ChangeEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { LocalStorage, UserState } from "../utils/LocalStorage";
 import { StorageType } from "../types/enum";
+import { LocalStorage, UserState } from "../utils/LocalStorage";
 import { setUser } from "../redux/userState";
 
 export interface NotiesType {
@@ -39,11 +39,7 @@ export const useSign = () => {
     "getItem",
     StorageType.ListUsers
   );
-  let parsedUsers: userTypes[] | null = null;
-
-  if (listUsers) {
-    parsedUsers = JSON.parse(listUsers);
-  }
+  const parsedUsers: userTypes[] = listUsers ? JSON.parse(listUsers) : [];
 
   const heandelSign = () => {
     setActiveSignUp(!activeSignUp);
@@ -73,102 +69,54 @@ export const useSign = () => {
     );
   };
 
-  const submitData = () => {
+  const validateForm = () => {
     const newError = { ...error };
-    let findEmail: userTypes | undefined;
-    let passwordTrue: boolean | null = null;
-
-    if (parsedUsers) {
-      findEmail = parsedUsers.find((item) => item.email === data.email);
-      if (!activeSignUp && !newError.email && findEmail) {
-        if (data.password !== findEmail.password) {
-          passwordTrue = true;
-        }
-      }
-    }
+    const existingUser = parsedUsers.find((user) => user.email === data.email);
 
     if (activeSignUp) {
-      if (data.username === "") {
-        newError.username = "Заполните username";
-      } else {
-        newError.username = "";
-      }
+      newError.username = data.username ? "" : "Заполните username";
     }
 
-    if (data.email === "") {
-      newError.email = "Заполните email";
-    } else if (!validateEmail(data.email)) {
-      newError.email = "Введите корректный email";
-    } else if (findEmail && activeSignUp) {
-      newError.email = "Такой пользователь уже есть";
-    } else if (!findEmail && !activeSignUp) {
-      newError.email = "Такого пользователя нет";
-    } else {
-      newError.email = "";
-    }
+    newError.email = data.email
+      ? validateEmail(data.email)
+        ? existingUser && activeSignUp
+          ? "Такой пользователь уже есть"
+          : !existingUser && !activeSignUp
+          ? "Такого пользователя нет"
+          : ""
+        : "Введите корректный email"
+      : "Заполните email";
 
-    if (data.password === "") {
-      newError.password = "Заполните password";
-    } else if (activeSignUp && !validatePassword(data.password)) {
-      newError.password = "Мин 1 цифр 1 букв и 1 загл букв";
-    } else if (!activeSignUp && passwordTrue) {
-      newError.password = "Пароль не верен";
-    } else {
-      newError.password = "";
-    }
-    setError(() => newError);
-    if (
-      newError.username !== "" ||
-      newError.email !== "" ||
-      newError.password !== ""
-    ) {
-      console.log("error");
-    } else {
-      if (listUsers === null) {
+    newError.password = data.password
+      ? activeSignUp
+        ? validatePassword(data.password)
+          ? ""
+          : "Мин 1 цифр 1 букв и 1 загл букв"
+        : existingUser?.password !== data.password
+        ? "Пароль не верен"
+        : ""
+      : "Заполните password";
+
+    setError(newError);
+    return !Object.values(newError).some((errorMessage) => errorMessage !== "");
+  };
+
+  const submitData = () => {
+    if (validateForm()) {
+      if (!listUsers) {
         LocalStorage("setItem", StorageType.ListUsers, [
-          {
-            ...data,
-            listNoties: [],
-          },
+          { ...data, listNoties: [] },
         ]);
-        LocalStorage("setItem", StorageType.ActiveUser, {
-          ...data,
-          listNoties: [],
-        });
       } else {
-        console.log("elsef");
-        if (parsedUsers) {
-          console.log(parsedUsers, "f");
-          console.log(data, "data");
-          parsedUsers.push(data);
-          LocalStorage("setItem", StorageType.ListUsers, parsedUsers);
-          console.log(findEmail);
-          if (findEmail) {
-            LocalStorage("setItem", StorageType.ActiveUser, findEmail);
-          } else {
-            LocalStorage("setItem", StorageType.ActiveUser, {
-              ...data,
-              listNoties: [],
-            });
-          }
-        }
+        parsedUsers.push(data);
+        LocalStorage("setItem", StorageType.ListUsers, parsedUsers);
       }
+      LocalStorage("setItem", StorageType.ActiveUser, data);
 
-      const getActiveUser = (): UserState => {
-        const activeUser = LocalStorage("getItem", StorageType.ActiveUser);
-        return activeUser
-          ? JSON.parse(activeUser)
-          : {
-              username: null,
-              email: null,
-              password: null,
-              listNoties: [],
-            };
-      };
-
-      dispatch(setUser(getActiveUser()));
-
+      dispatch(setUser(data as UserState));
       navigate("/home");
+    } else {
+      console.log("error");
     }
   };
 

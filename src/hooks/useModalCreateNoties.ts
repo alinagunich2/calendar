@@ -1,30 +1,36 @@
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState, ChangeEvent } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { setActiveDay, setMonth, setYear } from "../redux/calendarState";
 import { setListNoties } from "../redux/userState";
 interface useModalCreateNotiesTypes {
   isModalCreate: boolean;
   setIsModalCreate: (val: boolean) => void;
+  setShowPopup: (val: boolean) => void;
 }
 export const useModalCreateNoties = ({
   isModalCreate,
   setIsModalCreate,
+  setShowPopup,
 }: useModalCreateNotiesTypes) => {
   const dispatch = useDispatch();
 
-  const { activeDay, month, year } = useSelector(
+  const { activeDay, month, year, color } = useSelector(
     (state: RootState) => state.calendar
   );
 
+  const [disabledBtn, setDisabledBtn] = useState(true);
+
   useEffect(() => {
-    setModalData((prevData) => ({
-      ...prevData,
+    setModalData({
+      title: "",
       activeDay,
       month,
       year,
-    }));
+      description: "",
+    });
   }, [activeDay, month, year]);
+
   const [modalData, setModalData] = useState({
     title: "",
     activeDay,
@@ -32,7 +38,20 @@ export const useModalCreateNoties = ({
     year,
     description: "",
   });
-  //
+
+  useEffect(() => {
+    const isValid =
+      modalData.title.trim() &&
+      modalData.description.trim() &&
+      /^\d{2}$/.test(modalData.activeDay) &&
+      Number(modalData.activeDay) <= 31 &&
+      /^\d{2}$/.test(modalData.month) &&
+      Number(modalData.month) <= 12 &&
+      /^\d{4}$/.test(modalData.year);
+
+    setDisabledBtn(!isValid);
+  }, [modalData]);
+
   const hendleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -50,15 +69,7 @@ export const useModalCreateNoties = ({
   };
 
   const submitData = () => {
-    if (
-      modalData.title &&
-      modalData.description &&
-      /^\d{2}$/.test(modalData.activeDay) &&
-      Number(modalData.activeDay) <= 31 &&
-      /^\d{2}$/.test(modalData.month) &&
-      Number(modalData.month) <= 12 &&
-      /^\d{4}$/.test(modalData.year)
-    ) {
+    if (!disabledBtn) {
       dispatch(setListNoties(modalData));
       setModalData({
         title: "",
@@ -68,14 +79,10 @@ export const useModalCreateNoties = ({
         description: "",
       });
       setIsModalCreate(!isModalCreate);
-      console.log("все отправлено");
-    } else {
-      console.log(modalData.activeDay);
-      console.log(modalData.month);
-      console.log(modalData.month);
-      console.log("не отправлено");
+      setShowPopup(true);
     }
   };
+
   return {
     activeDay,
     month,
@@ -83,5 +90,7 @@ export const useModalCreateNoties = ({
     modalData,
     hendleChange,
     submitData,
+    disabledBtn,
+    color,
   };
 };

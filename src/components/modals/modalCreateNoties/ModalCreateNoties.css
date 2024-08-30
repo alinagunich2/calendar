@@ -4,10 +4,9 @@
   padding: 10px 8px;
   border-radius: 10px;
   border: 1px solid rgb(131, 136, 129);
-  background-color: rgba(231, 255, 221, 0.826);
+
   width: 100%;
   font-size: 14px;
-  color: rgb(64, 86, 51);
   margin-bottom: 15px;
 }
 .modal__text {
@@ -45,4 +44,24 @@
 .modal__input-item:first-child,
 .modal__input-item:nth-child(3) {
   width: 20px;
+}
+.green .modal__input,
+.green .modal__text,
+.green .modal__inputs,
+.green .modal__input-item {
+  background-color: var(--green-50);
+}
+
+.pink .modal__input,
+.pink .modal__text,
+.pink .modal__inputs,
+.pink .modal__input-item {
+  background-color: rgba(250, 221, 255, 0.826);
+}
+
+.blue .modal__input,
+.blue .modal__text,
+.blue .modal__inputs,
+.blue .modal__input-item {
+  background-color: rgba(221, 226, 255, 0.826);
 }

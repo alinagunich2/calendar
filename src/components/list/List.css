@@ -6,22 +6,21 @@
 .mounth__input,
 .mounth__select {
   padding: 10px 20px;
-  border: 1px solid rgb(132, 205, 90);
   border-radius: 5px;
   text-align: center;
   cursor: pointer;
   font-size: 20px;
-  background-color: rgb(168, 208, 145);
+}
+.mounth__select {
+  width: 140px;
 }
 .mounth__items {
+  width: 140px;
   position: absolute;
   top: 50px;
   left: 0px;
-  width: 105px;
   text-align: center;
-  border: 1px solid rgb(163, 230, 124);
   border-radius: 8px;
-  background-color: rgb(215, 241, 201);
   z-index: 29292992;
 }
 .mounth__item {
@@ -29,6 +28,45 @@
   font-size: 14px;
   cursor: pointer;
 }
-.mounth__item:not(:last-child) {
-  border-bottom: 1px solid rgb(163, 230, 124);
+
+.green .mounth__input,
+.green .mounth__select {
+  border: 1px solid var(--green-300);
+  background-color: var(--green-200);
+}
+
+.green .mounth__items {
+  border: 1px solid var(--green-200);
+  background-color: var(--green-250);
+}
+.green .mounth__item:not(:last-child) {
+  border-bottom: 1px solid var(--green-200);
+}
+
+.pink .mounth__input,
+.pink .mounth__select {
+  border: 1px solid rgb(192, 88, 210);
+  background-color: rgb(199, 145, 208);
+}
+
+.pink .mounth__items {
+  border: 1px solid rgb(199, 145, 208);
+  background-color: rgb(241, 184, 243);
+}
+.pink .mounth__item:not(:last-child) {
+  border-bottom: 1px solid rgb(199, 145, 208);
+}
+
+.blue .mounth__input,
+.blue .mounth__select {
+  border: 1px solid rgb(88, 123, 210);
+  background-color: rgb(145, 174, 208);
+}
+
+.blue .mounth__items {
+  border: 1px solid rgb(184, 210, 243);
+  background-color: rgb(184, 210, 243);
+}
+.blue .mounth__item:not(:last-child) {
+  border-bottom: 1px solid rgb(145, 174, 208);
 }

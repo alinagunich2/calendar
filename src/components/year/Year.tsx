@@ -1,8 +1,8 @@
 import "./Year.css";
 import { useYear } from "../../hooks/useYear";
+
 const Year = () => {
   const { year, handleYearChange } = useYear();
-
   return (
     <div className="year">
       <div className="year__back" onClick={() => handleYearChange("back")}>
