@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import "./Header.css";
 import { useDispatch, useSelector } from "react-redux";
 import { deliteUser } from "../../redux/userState";
+import { RootState } from "../../redux/store";
 
 const Header = () => {
   const { listNoties } = useSelector((state: RootState) => state.user);

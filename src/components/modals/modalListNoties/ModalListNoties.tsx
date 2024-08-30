@@ -1,10 +1,8 @@
 import React from "react";
 import { NotiesType } from "../../../utils/LocalStorage";
 import Portal from "../Portal";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
 import "./ModalListNoties.css";
-import { deliteNotieInList } from "../../../redux/userState";
+import { useModalListNoties } from "../../../hooks/useModalListNoties";
 interface ModalListNotiesTypes {
   dayClick: string | null;
   isModalListNoties: boolean;
@@ -12,18 +10,10 @@ interface ModalListNotiesTypes {
   filterListNoties: NotiesType[] | undefined;
 }
 const ModalListNoties: React.FC<ModalListNotiesTypes> = (p) => {
-  const dispatch = useDispatch();
-  const { month, year } = useSelector((state: RootState) => state.calendar);
-  const { listNoties } = useSelector((state: RootState) => state.user);
-  let filterListNotiesDay = [];
-  if (p.filterListNoties) {
-    filterListNotiesDay = p.filterListNoties.filter(
-      (item) => item.activeDay === p.dayClick
-    );
-  }
-  const deliteNoties = (item: NotiesType) => {
-    dispatch(deliteNotieInList(item));
-  };
+  const { month, year, filterListNotiesDay, deliteNoties } = useModalListNoties(
+    { dayClick: p.dayClick, filterListNoties: p.filterListNoties }
+  );
+
   if (!p.isModalListNoties) return null;
   return (
     <Portal

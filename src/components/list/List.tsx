@@ -1,18 +1,13 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import "./List.css";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
-export interface ListProps {
-  months: string[];
-  handleMonthChange: (val: number) => void;
-  setListActive: (val: boolean) => void;
-  listActive: boolean;
-}
+import { useList } from "../../hooks/useList";
 
-const List: React.FC<ListProps> = (p) => {
+const List = () => {
+  const { months, listActive, setListActive, handleMonthChange, month } =
+    useList();
+
   const listRef = useRef<HTMLUListElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
-  const { month } = useSelector((state: RootState) => state.calendar);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -22,7 +17,7 @@ const List: React.FC<ListProps> = (p) => {
         buttonRef.current &&
         !buttonRef.current.contains(event.target as Node)
       ) {
-        p.setListActive(false);
+        setListActive(false);
       }
     };
 
@@ -37,19 +32,19 @@ const List: React.FC<ListProps> = (p) => {
         className="mounth__select"
         ref={buttonRef}
         onClick={() => {
-          p.setListActive(!p.listActive);
+          setListActive(!listActive);
         }}
       >
-        {p.months[parseInt(String(month), 10)]}
+        {months[parseInt(month, 10)]}
       </button>
-      {p.listActive && (
+      {listActive && (
         <ul ref={listRef} className="mounth__items">
-          {p.months.map((item, i) => (
+          {months.map((item, i) => (
             <>
               {i !== 0 && (
                 <li
                   className="mounth__item"
-                  onClick={() => p.handleMonthChange(i)}
+                  onClick={() => handleMonthChange(i)}
                   key={item}
                 >
                   {item}

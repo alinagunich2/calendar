@@ -1,52 +1,27 @@
-import React, { useState } from "react";
 import "./Calendar.css";
 import ModalCreateNoties from "../modals/modalCreateNoties/ModalCreateNoties";
-import { useDispatch, useSelector } from "react-redux";
-import { setActiveDay, setMonth, setYear } from "../../redux/calendarState";
-import { RootState } from "../../redux/store";
 import ModalListNoties from "../modals/modalListNoties/ModalListNoties";
+import { useTodayHandler } from "../../hooks/hooksCalendar/useToDayStap";
+import { useCalendar } from "../../hooks/hooksCalendar/useCalendar";
+import { useModalOpen } from "../../hooks/hooksCalendar/useModalOpen";
 
 const Calendar = () => {
-  const dispatch = useDispatch();
-  const toDay = String(new Date().getDate()).padStart(2, "0");
-  const toMonth = String(new Date().getMonth() + 1).padStart(2, "0");
-  const toYear = String(new Date().getFullYear());
-  const { daysInCalendar, activeDay, month, year } = useSelector(
-    (state: RootState) => state.calendar
-  );
-
-  const { listNoties } = useSelector((state: RootState) => state.user);
-
-  const filterListNoties = listNoties?.filter((item) => item.month === month);
-  const [isModalCreate, setIsModalCreate] = useState(false);
-  const [isModalListNoties, setModalListNoties] = useState(false);
-  const [dayClick, setDayClick] = useState<null | string>(null);
-
-  const openModal = (day: string | null) => {
-    if (typeof day === "string") {
-      setIsModalCreate(!isModalCreate);
-      dispatch(setActiveDay(day));
-    }
-  };
-  const goToToday = () => {
-    dispatch(setActiveDay(toDay));
-    dispatch(setMonth(toMonth));
-    dispatch(setYear(toYear));
-  };
-  const openModalList = (
-    e: React.MouseEvent<HTMLDivElement>,
-    dayClick: string | null
-  ) => {
-    e.stopPropagation();
-    if (dayClick) {
-      setDayClick(dayClick);
-      setModalListNoties(!isModalListNoties);
-    }
-  };
+  const { daysInCalendar, activeDay, month, year, filterListNoties } =
+    useCalendar();
+  const {
+    setModalListNoties,
+    isModalListNoties,
+    openModal,
+    isModalCreate,
+    setIsModalCreate,
+    dayClick,
+    openModalList,
+  } = useModalOpen();
+  const { toDay, toMonth, toYear, goToDay } = useTodayHandler();
 
   return (
     <div className="calendar">
-      <div className="calendar__today" onClick={goToToday}>
+      <div className="calendar__today" onClick={goToDay}>
         Today
       </div>
       <div className="days">

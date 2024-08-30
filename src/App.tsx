@@ -6,8 +6,8 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import Header from "./components/header/Header";
-import Home from "./components/home/Home";
-import Sign from "./components/sign/Sign";
+import Home from "./pages/home/Home";
+import Sign from "./pages/sign/Sign";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
 import { ReactNode } from "react";

@@ -1,11 +1,9 @@
 import { ChangeEvent, useState } from "react";
-import "./Sign.css";
-import { useNavigate } from "react-router-dom";
-import { StorageType } from "../../types/enum";
-import Button from "../../elements/buttons/Button";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../redux/userState";
-import { LocalStorage, UserState } from "../../utils/LocalStorage";
+import { useNavigate } from "react-router-dom";
+import { LocalStorage, UserState } from "../utils/LocalStorage";
+import { StorageType } from "../types/enum";
+import { setUser } from "../redux/userState";
 
 export interface NotiesType {
   day: number;
@@ -20,9 +18,11 @@ export interface userTypes {
   password: string;
   listNoties?: NotiesType[] | [];
 }
-const Sign = () => {
-  const dispatch = useDispatch();
+
+export const useSign = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [activeSignUp, setActiveSignUp] = useState(true);
   const [data, setData] = useState({
     username: "",
@@ -34,11 +34,13 @@ const Sign = () => {
     email: "",
     password: "",
   });
+
   const listUsers: string | null | undefined = LocalStorage(
     "getItem",
     StorageType.ListUsers
   );
   let parsedUsers: userTypes[] | null = null;
+
   if (listUsers) {
     parsedUsers = JSON.parse(listUsers);
   }
@@ -52,6 +54,7 @@ const Sign = () => {
       password: "",
     });
   };
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setData((prevData) => ({
@@ -59,6 +62,7 @@ const Sign = () => {
       [name]: value,
     }));
   };
+
   const validateEmail = (email: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
@@ -149,6 +153,7 @@ const Sign = () => {
           }
         }
       }
+
       const getActiveUser = (): UserState => {
         const activeUser = LocalStorage("getItem", StorageType.ActiveUser);
         return activeUser
@@ -166,62 +171,13 @@ const Sign = () => {
       navigate("/home");
     }
   };
-  return (
-    <div className="sign__container ">
-      <div className="sign__content">
-        <div className="sign__title">
-          {activeSignUp ? <>Sign Up</> : <>Sign In</>}
-        </div>
-        <form className="sign__form">
-          {activeSignUp && (
-            <>
-              <input
-                className="sign__input"
-                onChange={handleChange}
-                name="username"
-                type="text"
-                value={data.username}
-                placeholder="Username..."
-              />
-              <div className="error">{error.username}</div>
-            </>
-          )}
-          <input
-            className="sign__input"
-            type="email"
-            name="email"
-            onChange={handleChange}
-            value={data.email}
-            placeholder="Email..."
-          />
-          <div className="error">{error.email}</div>
-          <input
-            className="sign__input"
-            type="password"
-            name="password"
-            onChange={handleChange}
-            value={data.password}
-            placeholder="Password..."
-          />
-          <div className="error">{error.password}</div>
-          <Button click={submitData} />
-        </form>
-      </div>
-      <p className="sign__description">
-        {activeSignUp ? (
-          <>
-            Already have an account? Try to{" "}
-            <span onClick={heandelSign}>Sign-in!</span>
-          </>
-        ) : (
-          <>
-            Don't have an account? Try to{" "}
-            <span onClick={heandelSign}>Sign-up!</span>
-          </>
-        )}
-      </p>
-    </div>
-  );
-};
 
-export default Sign;
+  return {
+    activeSignUp,
+    handleChange,
+    data,
+    error,
+    submitData,
+    heandelSign,
+  };
+};
